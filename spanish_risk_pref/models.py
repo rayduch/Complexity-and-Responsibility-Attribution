@@ -16,8 +16,8 @@ class Constants(BaseConstants):
     name_in_url = 'spanish_risk_pref'
     players_per_group = None
     num_rounds = 1
-    risk_choices_A = (1, .8)
-    risk_choices_B = (1.95, .05)
+    risk_choices_A = (1000, 800)
+    risk_choices_B = (1950, 50)
     min_perc = 10
     max_perc = 101
     step = 10

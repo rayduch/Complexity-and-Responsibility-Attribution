@@ -22,13 +22,13 @@
                     decisiones tienen la misma probabilidad de ser elegidas.
                 </li>
                 <li class="list-group-item">
-                    El tipo de decisiones que vas a tomar es el siguiente: En la Decisión 1, Opción A paga $2.000 con
-                    probabilidad 10%, y paga $1.600 con probabilidad  90%. Opción B paga $3.850 con probabilidad 10%, y
-                    paga $100 con probabilidad 90%. El resto de decisiones son similares, con la única diferencia que
+                    El tipo de decisiones que vas a tomar es el siguiente: En la Decisión 1, Opción A paga $1.000 con
+                    probabilidad 10%, y paga $800 con probabilidad  90%. Opción B paga $1.950 con probabilidad 10%, y
+                    paga $50 con probabilidad 90%. El resto de decisiones son similares, con la única diferencia que
                     la probabilidad de recibir el pago más alto en cada opción aumenta. De hecho, en la Decisión 10, la
                     segunda selección aleatoria del servidor no será necesaria para calcular tus ganancias dado que las
-                    dos opciones pagan la cantidad más alta con probabilidad 100%, así que tu Decisión será entre $2.000
-                    y $3.850.
+                    dos opciones pagan la cantidad más alta con probabilidad 100%, así que tu Decisión será entre $1.000
+                    y $1.950.
                 </li>
                 <li class="list-group-item">
                     Estas ganancias se añadirán a tus ganancias previas de anteriores módulos y te pagaremos en efectivo
@@ -55,11 +55,11 @@ Por favor eliga entre Opción A u Opción B para cada uno de los 10 pares
     </tr>
     <tr>
         <th></th>
-        <th>&pound;{{ Constants.risk_choices_A.0 }}</th>
-        <th>&pound;{{ Constants.risk_choices_A.1 }}</th>
+        <th>${{ Constants.risk_choices_A.0 }}</th>
+        <th>${{ Constants.risk_choices_A.1 }}</th>
         <th></th>
-        <th>&pound;{{ Constants.risk_choices_B.0 }}</th>
-        <th>&pound;{{ Constants.risk_choices_B.1 }}</th>
+        <th>${{ Constants.risk_choices_B.0 }}</th>
+        <th>${{ Constants.risk_choices_B.1 }}</th>
 
         <th></th>
     </tr>
