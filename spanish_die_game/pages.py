@@ -17,7 +17,7 @@ class DiceRolling(Page):
 
 class FinalResults(Page):
     def vars_for_template(self):
-        print(self.participant.vars[self.player.session_id]['part2_payoff'])
+        print("final results: ", self.session.config['real_world_currency_per_point'])
         return {
             'modules1_chosen_round': self.participant.vars[self.player.session_id]['part1_chosenRounds'][0],
             'modules2_chosen_round': self.participant.vars[self.player.session_id]['part1_chosenRounds'][1],
@@ -25,10 +25,10 @@ class FinalResults(Page):
             'modules2_payoff': self.participant.vars[self.player.session_id]['part1_payoff'][1],
             'modules3_payoff': self.participant.vars[self.player.session_id]['part2_payoff'],
             'modules4_payoff': self.participant.vars[self.player.session_id]['part3_payoff'],
-            'total_payoff': self.participant.vars[self.player.session_id]['part1_payoff'][0] +
+            'total_payoff': int((self.participant.vars[self.player.session_id]['part1_payoff'][0] +
                             self.participant.vars[self.player.session_id]['part1_payoff'][1] +
-                            self.participant.vars[self.player.session_id]['part2_payoff'] +
-                            self.participant.vars[self.player.session_id]['part3_payoff']
+                            self.participant.vars[self.player.session_id]['part3_payoff']) * 1.67 +
+                            self.participant.vars[self.player.session_id]['part2_payoff'])
         }
 
 

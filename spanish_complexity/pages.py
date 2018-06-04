@@ -136,6 +136,7 @@ class FinalResults(CustomPage):
             'chosen_round2': chosen_round2,
             'first_pay': firstPay,
             'second_pay': secondPay,
+            'tot_pay': firstPay+secondPay
             # 'paying_round2': chosen_round - Constants.num_first_part,
         }
 

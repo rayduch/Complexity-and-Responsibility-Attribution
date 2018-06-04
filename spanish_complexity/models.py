@@ -13,11 +13,6 @@ author = 'Philipp Chapkovski, Danlin Chen'
 doc = """
 R.Duch, D. Landa project on die_game
 """
-# Matrix = []
-# ThreeMatrix = []
-# repeatFlag = 0
-# bestFlag = 0
-# stopRandom = False
 
 
 
@@ -41,7 +36,7 @@ class Constants(BaseConstants):
     assert players_per_group == 2, 'Number of players should be 2 for correct role assignemnt'
     num_rounds = 16
     num_first_part = 8
-    num_participants = 10
+    num_participants = 10 # number of participants
     ####perfect matching####
     cons1 = np.zeros([num_first_part, num_participants], dtype=int)
     var = np.full([num_first_part, math.floor(num_participants/2) ], -1)
@@ -86,7 +81,7 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
 
     def set_mtx(self):
-        if self.round_number <= 8:
+        if self.round_number <= Constants.num_first_part:
             round_mtx = []
             players = self.get_players()
             for pair in range(0, math.floor(Constants.num_participants / 2)):
@@ -159,6 +154,9 @@ class Group(BaseGroup):
             3: self.task1outcome + self.task2outcome == 1,
             4: True,
         }[self.retaining]
+
+    def get_decision(self):
+        return Constants.RETAININGCHOICES[self.get_retention_decision()][1]
 
     def set_outcome(self):
         self.task1outcome = self.task1decision * random.choices(LOTTERYOUTCOMES, weights=Constants.pweights)[0][0]

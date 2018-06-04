@@ -15,7 +15,7 @@
 
                 <div class="mb-3">
                     <div>
-                        Has jugado 18 rondas en los módulos 1,2,3 y 4.
+                        Has jugado {{ Constants.num_rounds}} rondas en los módulos 1 y 2.
                     </div>
 
                     <div>
@@ -24,14 +24,22 @@
 
                     </div>
                     <div>
-                        Rondas {{ modules1_chosen_round }}, y {{ modules2_chosen_round }}
-                        fueron escogidos — Sus ganancias para estas rondas fueron {{ modules1_payoff }}, y {{ modules2_payoff }}.
+                        Rondas Elegidas: {{ modules1_chosen_round }}, y {{ modules2_chosen_round }}
                     </div>
                     <div>
-                        Tu total
-                        ganancias en la sesión son{{ modules1_payoff }} + {{ modules2_payoff }}
-                        + {{ modules3_payoff }} + {{ modules4_payoff }}
-                        = {{ total_payoff }}.
+                        Fganancias para la ronda 1: {{ modules1_payoff }}
+                    </div>
+                    <div>
+                        Fganancias para la ronda 2: {{ modules2_payoff }}
+                    </div>
+                    <div>
+                        Fganancias para la módulos 3: {{ modules3_payoff }} pesos
+                    </div>
+                    <div>
+                        Fganancias para la módulos 4: {{ modules4_payoff }}
+                    </div>
+                    <div>
+                        Tu total: {{ total_payoff }} pesos
                     </div>
                 </div>
 

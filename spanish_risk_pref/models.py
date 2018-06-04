@@ -63,11 +63,11 @@ class Player(BasePlayer):
                 payoff = Constants.risk_choices_B[1]
             else:
                 payoff = Constants.risk_choices_A[1]
-        self.participant.vars[self.session_id]['part2_payoff'] = payoff / 1.0
+        self.participant.vars[self.session_id]['part2_payoff'] = payoff / 1.0 * 1000 # in pesos
+        print("risk: ", payoff)
         # the following is NOT the safest way of doing it, but works for now (insturctions should be
         # rewritten in ECUs
         self.payoff = payoff / self.session.config['real_world_currency_per_point']
-
 
 class Risk(djmodels.Model):
     player = models.ForeignKey(Player, related_name="risks")
