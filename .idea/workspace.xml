@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8ff8530-42db-45cb-b14c-a792c9c22373" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Spanish_Complexity_Game.iml" afterPath="$PROJECT_DIR$/.idea/Spanish_Complexity_Game.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/spanish_die_game/models.py" afterPath="$PROJECT_DIR$/spanish_die_game/models.py" />
-      <change beforePath="$PROJECT_DIR$/spanish_die_game/pages.py" afterPath="$PROJECT_DIR$/spanish_die_game/pages.py" />
-      <change beforePath="$PROJECT_DIR$/spanish_die_game/templates/spanish_die_game/DiceRolling.html" afterPath="$PROJECT_DIR$/spanish_die_game/templates/spanish_die_game/DiceRolling.html" />
-      <change beforePath="$PROJECT_DIR$/spanish_die_game/templates/spanish_die_game/DiceRollingResults.html" afterPath="$PROJECT_DIR$/spanish_die_game/templates/spanish_die_game/DiceRollingResults.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -67,7 +61,7 @@
         <entry file="file://$PROJECT_DIR$/spanish_die_game/pages.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="646">
-              <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+              <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding>
                 <element signature="e#0#51#0" expanded="true" />
               </folding>
@@ -89,7 +83,7 @@
         <entry file="file://$PROJECT_DIR$/spanish_die_game/templates/spanish_die_game/DiceRollingResults.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
-              <caret line="22" column="9" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <caret line="22" column="9" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -99,7 +93,7 @@
         <entry file="file://$PROJECT_DIR$/spanish_die_game/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="327">
-              <caret line="22" column="8" lean-forward="true" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
+              <caret line="22" column="8" lean-forward="false" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -487,7 +481,7 @@
     <entry file="file://$PROJECT_DIR$/spanish_die_game/templates/spanish_die_game/DiceRollingResults.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="22" column="9" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <caret line="22" column="9" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -503,7 +497,7 @@
     <entry file="file://$PROJECT_DIR$/spanish_die_game/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="327">
-          <caret line="22" column="8" lean-forward="true" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
+          <caret line="22" column="8" lean-forward="false" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -511,7 +505,7 @@
     <entry file="file://$PROJECT_DIR$/spanish_die_game/pages.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
-          <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
           </folding>
