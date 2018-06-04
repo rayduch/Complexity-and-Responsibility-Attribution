@@ -2,8 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f8ff8530-42db-45cb-b14c-a792c9c22373" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/__init__.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/auth/0001_initial.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/auth/__init__.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/contenttypes/0001_initial.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/contenttypes/__init__.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/otree/0001_initial.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/otree/__init__.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/sessions/0001_initial.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/sessions/__init__.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/spanish_complexity/0001_initial.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/spanish_complexity/0002_auto_20180604_1158.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/spanish_complexity/0003_auto_20180604_1158.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/spanish_complexity/__init__.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/spanish_die_game/0001_initial.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/spanish_die_game/__init__.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/spanish_risk_pref/0001_initial.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/__temp_migrations/spanish_risk_pref/__init__.py" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -61,8 +77,8 @@
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="12" lean-forward="false" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+            <state relative-caret-position="187">
+              <caret line="11" column="10" lean-forward="true" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -661,8 +677,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="12" lean-forward="false" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+        <state relative-caret-position="187">
+          <caret line="11" column="10" lean-forward="true" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
           <folding />
         </state>
       </provider>
