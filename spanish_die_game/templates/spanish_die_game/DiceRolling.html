@@ -8,11 +8,12 @@
 {% block content %}
     <div class="demo">
         <div class="wrap">
-            <div id="dice" class="dice dice_1"></div>
+            <div id="dice" class="dice dice_t"></div>
         </div>
         <p id="result">Please click above dice!</p>
     </div>
     {% formfield player.dice %}
+    {% formfield player.report %}
     {% next_button %}
     <ol type="a" class="list-group">
 
@@ -35,11 +36,14 @@
     <script>
         $(function () {
             var dice = $("#dice");
+
             dice.click(function () {
                 $(".wrap").append("<div id='dice_mask'></div>");//add mask
                 dice.attr("class", "dice");//After clearing the last points animation
                 dice.css('cursor', 'default');
                 var num = Math.floor(Math.random() * 6 + 1);//random num 1-6
+                $('#id_report').val(num);//record dice
+                $('#id_report').attr('value', num);
                 dice.animate({left: '+2px'}, 100, function () {
                     dice.addClass("dice_t");
                 }).delay(200).animate({top: '-2px'}, 100, function () {
@@ -112,7 +116,8 @@
 
         p#result {
             text-align: center;
-            font-size: 16px
+            font-size: 16px;
+            font-weight: 600;
         }
 
         p#result span {
@@ -130,6 +135,10 @@
             top: 0;
             left: 0;
             z-index: 999
+        }
+
+        #id_report {
+            display: none
         }
     </style>
 

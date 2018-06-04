@@ -10,7 +10,7 @@ class Instructions(Page):
 
 class DiceRolling(Page):
     form_model = 'player'
-    form_fields = ['dice']
+    form_fields = ['dice', 'report']
 
     def before_next_page(self):
         self.player.set_payoff()

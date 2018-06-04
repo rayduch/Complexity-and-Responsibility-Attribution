@@ -30,6 +30,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     dice = models.IntegerField(min=1, max=6,
                                verbose_name='Please report the number on the dice')
+    report = models.StringField(verbose_name='Report the dice of system', blank=True)
 
     def set_payoff(self):
         self.payoff = Constants.report_coef * self.dice

@@ -12,7 +12,16 @@
         <td>{{ player.dice }}</td>
     </tr>
     <tr>
-
+        <td>System's recorded the number:</td>
+        <td>
+            {% if player.report %}
+                {{ player.report }}
+            {% else %}
+                The player did not shake the dice
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
         <td>Your profit:</td>
         <td>{{ player.payoff }}</td>
     </tr>
