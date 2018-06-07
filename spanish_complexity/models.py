@@ -35,8 +35,8 @@ class Constants(BaseConstants):
     name_in_url = 'spanish_complexity'
     players_per_group = 2
     assert players_per_group == 2, 'Number of players should be 2 for correct role assignemnt'
-    num_rounds = 20
-    num_first_part = 10
+    num_rounds = 16
+    num_first_part = 8
     num_participants = settings.SESSION_CONFIGS[0].get('num_demo_participants')# number of participants
     ####perfect matching####
     cons1 = np.zeros([num_first_part, num_participants], dtype=int)

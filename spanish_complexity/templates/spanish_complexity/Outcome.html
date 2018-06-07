@@ -18,14 +18,22 @@
             <td>{{ group.get_task2outcome_display }}</td>
         </tr>
         {% if player.role == 'P2' and group.get_guess1 != 'None' %}
-                <tr>
-                    <td>Su conjetura para la Tarea 1 era </td>
-                    <td> {{ group.get_guess1 }} </td>
-                </tr>
-                <tr>
-                    <td>Su conjetura para la Tarea 2 era</td>
-                    <td> {{ group.get_guess2 }} </td>
-                </tr>
+            <tr>
+                <td>Recuerde que la regla de decisión que usted eligió fue</td>
+                <td>{{ group.get_retaining_display }}</td>
+            </tr>
+            <tr>
+                <td>Su conjetura para la Tarea 1 era </td>
+                <td> {{ group.get_guess1 }} </td>
+            </tr>
+            <tr>
+                <td>Su conjetura para la Tarea 2 era</td>
+                <td> {{ group.get_guess2 }} </td>
+            </tr>
+            <tr>
+                <td>El resultado para el Jugador 1 es  </td>
+                <td>{{ group.get_retention_decision|yesno:'Recompensa, No hay recompensa' }}</td>
+            </tr>
         {% endif %}
         {% if player.role == 'P1' %}
             <tr>
@@ -36,6 +44,7 @@
                 <td>El resultado es</td>
                 <td>{{ group.get_retention_decision|yesno:'Recompensa, No hay recompensa' }}</td>
             </tr>
+        {% comment %}
             <tr>
                 <td>Tu ganancia de recompensa:</td>
                 <td>{{ retention_gain }}</td>
@@ -44,6 +53,7 @@
                 <td>Tu recompensa en esta ronda:</td>
                 <td>{{ player.payoff }}</td>
             </tr>
+        {% endcomment %}
         {% endif %}
 
 
