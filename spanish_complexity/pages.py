@@ -83,6 +83,7 @@ class P2SecondDecision(P2Page):
         print('BBBB', Constants.p2_second_decision_rounds)
         print('P2SecondDec: task1guess: ', self.group.task1guess)
         print('P2SecondDec: task2guess: ', self.group.task2guess)
+        print('P2SecondDec: task2guess: ', self.group.task2guess)
 
         return super().is_displayed() and self.round_number in Constants.p2_second_decision_rounds
 

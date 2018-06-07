@@ -23,17 +23,19 @@
                 <td>{{ group.get_retaining_display }}</td>
             </tr>
             <tr>
-                <td>Su conjetura para la Tarea 1 era </td>
-                <td> {{ group.get_guess1 }} </td>
-            </tr>
-            <tr>
-                <td>Su conjetura para la Tarea 2 era</td>
-                <td> {{ group.get_guess2 }} </td>
-            </tr>
-            <tr>
                 <td>El resultado para el Jugador 1 es  </td>
                 <td>{{ group.get_retention_decision|yesno:'Recompensa, No hay recompensa' }}</td>
             </tr>
+            {% if player.round_number == Constants.p2_second_decision_rounds %}
+                <tr>
+                    <td>Su conjetura para la Tarea 1 era </td>
+                    <td> {{ group.P2guess1 }} </td>
+                </tr>
+                <tr>
+                    <td>Su conjetura para la Tarea 2 era</td>
+                    <td> {{ group.P2guess1 }} </td>
+                </tr>
+            {% endif %}
         {% endif %}
         {% if player.role == 'P1' %}
             <tr>

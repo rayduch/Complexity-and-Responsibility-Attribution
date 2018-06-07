@@ -134,11 +134,11 @@ class Group(BaseGroup):
     task2outcome = models.BooleanField(doc='outcome of task 2',
                                        choices=LOTTERYOUTCOMES)
     task1guess = LotteryField(doc='P2 guess of lottery decision of P1 - task 1',
-                              verbose_name='Player 1 will pay the cost on Task 1',
+                              verbose_name='El Jugador 1 pagará el costo de la Tarea 1',
                               third_person=True,
                               )
     task2guess = LotteryField(doc='P2 guess of lottery decision of P1 - task 2',
-                              verbose_name='Player 1 will pay the cost on Task 2',
+                              verbose_name='El Jugador 1 pagará el costo de la Tarea 2',
                               third_person=True,
 
                               )
@@ -160,13 +160,13 @@ class Group(BaseGroup):
         return Constants.RETAININGCHOICES[self.get_retention_decision()][1]
 
     def get_guess1(self):
-        if self.task1guess:
+        if self.task1guess == self.task1decision:
             return 'Correcto'
         else:
             return 'Incorrecto'
 
     def get_guess2(self):
-        if self.task2guess:
+        if self.task2guess == self.task1decision:
             return 'Correcto'
         else:
             return 'Incorrecto'
