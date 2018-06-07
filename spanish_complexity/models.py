@@ -7,6 +7,7 @@ import random
 import numpy as np
 import math
 from .perfect_matching import PerfectMatch as pm
+from django.conf import settings
 
 author = 'Philipp Chapkovski, Danlin Chen'
 
@@ -34,9 +35,9 @@ class Constants(BaseConstants):
     name_in_url = 'spanish_complexity'
     players_per_group = 2
     assert players_per_group == 2, 'Number of players should be 2 for correct role assignemnt'
-    num_rounds = 16
-    num_first_part = 8
-    num_participants = 10 # number of participants
+    num_rounds = 20
+    num_first_part = 10
+    num_participants = settings.SESSION_CONFIGS[0].get('num_demo_participants')# number of participants
     ####perfect matching####
     cons1 = np.zeros([num_first_part, num_participants], dtype=int)
     var = np.full([num_first_part, math.floor(num_participants/2) ], -1)
@@ -47,7 +48,7 @@ class Constants(BaseConstants):
     # how many practice rounds we have
     num_practice = 0
     # when the second decision (guess) about p1 decision is shown
-    num_second_dec = 0 # run at least 7 rounds per respondent
+    num_second_dec = 3 # run at least 7 rounds per respondent
     assert num_first_part < num_rounds, 'First set of decisions should be less then total number of rounds'
     assert num_practice < num_first_part and num_practice < num_second_part, 'training rounds number should be ' \
                                                                              'strictly less than total number of rounds'
@@ -95,7 +96,7 @@ class Subsession(BaseSubsession):
         if self.round_number == 1:
             PM = pm(Constants.Assignment,Constants.Domain, Constants.var, Constants.cons1, Constants.num_participants, Constants.num_first_part)
             result = pm.do_shuffle(PM)
-            print(Constants.Assignment)
+            #print(Constants.Assignment)
             self.set_mtx()
             for p in self.session.get_participants():
                 pround1 = random.randint(1, Constants.num_first_part)
@@ -157,6 +158,18 @@ class Group(BaseGroup):
 
     def get_decision(self):
         return Constants.RETAININGCHOICES[self.get_retention_decision()][1]
+
+    def get_guess1(self):
+        if self.task1guess:
+            return 'Correcto'
+        else:
+            return 'Incorrecto'
+
+    def get_guess2(self):
+        if self.task2guess:
+            return 'Correcto'
+        else:
+            return 'Incorrecto'
 
     def set_outcome(self):
         self.task1outcome = self.task1decision * random.choices(LOTTERYOUTCOMES, weights=Constants.pweights)[0][0]

@@ -17,6 +17,16 @@
             <td>El resultado de la tarea 2 es</td>
             <td>{{ group.get_task2outcome_display }}</td>
         </tr>
+        {% if player.role == 'P2' and group.get_guess1 != 'None' %}
+                <tr>
+                    <td>Su conjetura para la Tarea 1 era </td>
+                    <td> {{ group.get_guess1 }} </td>
+                </tr>
+                <tr>
+                    <td>Su conjetura para la Tarea 2 era</td>
+                    <td> {{ group.get_guess2 }} </td>
+                </tr>
+        {% endif %}
         {% if player.role == 'P1' %}
             <tr>
                 <td>Recuerde que la regla de decisión del Jugador 2 era</td>

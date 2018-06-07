@@ -81,6 +81,9 @@ class P2SecondDecision(P2Page):
     def is_displayed(self):
         print('AAAA', self.round_number)
         print('BBBB', Constants.p2_second_decision_rounds)
+        print('P2SecondDec: task1guess: ', self.group.task1guess)
+        print('P2SecondDec: task2guess: ', self.group.task2guess)
+
         return super().is_displayed() and self.round_number in Constants.p2_second_decision_rounds
 
     form_fields = ['task1guess', 'task2guess']
@@ -98,12 +101,16 @@ class Outcome(CustomPage):
         task2cost = - Constants.lotterycost * self.group.task2decision
         sum_task_success_gain = (self.group.task1outcome + self.group.task2outcome) * Constants.success_prize
         sum_guess_gain = self.group.get_sum_guess_prize()
+        P2guess1 = self.group.task1guess
+        P2guess2 = self.group.task2guess
         return {
             'retention_gain': retention_gain,
             'task1cost': task1cost,
             'task2cost': task2cost,
             'sum_task_success_gain': sum_task_success_gain,
             'sum_guess_gain': sum_guess_gain,
+            'P2guess1': P2guess1,
+            'P2guess2': P2guess2
         }
 
     def before_next_page(self):
