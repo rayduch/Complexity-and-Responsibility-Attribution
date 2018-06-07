@@ -2,27 +2,29 @@
 {% load staticfiles otree %}
 
 {% block title %}
-    Results of throwing the dice
+    Resultados del lanzamiento del dado
 {% endblock %}
 
 {% block content %}
 <table class="table">
     <tr>
-        <td>You entered the number:</td>
+        <td>Usted ingresó el número:</td>
         <td>{{ player.dice }}</td>
     </tr>
+    {% comment %}
     <tr>
         <td>System's recorded the number:</td>
         <td>
             {% if player.report %}
                 {{ player.report }}
             {% else %}
-                The player did not shake the dice
+                El jugador no lanzó los dados
             {% endif %}
         </td>
     </tr>
+    {% endcomment %}
     <tr>
-        <td>Your profit:</td>
+        <td>Tú ganancia:</td>
         <td>{{ player.payoff }}</td>
     </tr>
 </table>

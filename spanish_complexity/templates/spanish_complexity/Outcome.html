@@ -2,7 +2,7 @@
 {% load staticfiles otree %}
 
 {% block inner_title %}
-    Outcome
+    Resultados
 
 
 {% endblock %}
@@ -30,7 +30,7 @@
         {% if player.role == 'P1' %}
             <tr>
                 <td>Recuerde que la regla de decisión del Jugador 2 era</td>
-                <td>{{ group.get_decision }}</td>
+                <td>{{ group.get_retaining_display }}</td>
             </tr>
             <tr>
                 <td>El resultado es</td>

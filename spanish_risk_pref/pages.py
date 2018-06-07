@@ -26,7 +26,7 @@ class RiskElicitation(Page):
         formset = RiskFormSet(self.request.POST, instance=self.player, queryset=self.get_queryset())
         context['formset'] = formset
         if not formset.is_valid():
-            self.form.add_error(None, 'all fields are required!')
+            self.form.add_error(None, 'Todos los campos son requeridos!')
             context['form'] = self.form
             return self.render_to_response(context)
         formset.save()

@@ -16,8 +16,8 @@ class Constants(BaseConstants):
     name_in_url = 'spanish_risk_pref'
     players_per_group = None
     num_rounds = 1
-    risk_choices_A = (1, .8)
-    risk_choices_B = (1.95, .05)
+    risk_choices_A = (1000, 800)
+    risk_choices_B = (1950, 50)
     min_perc = 10
     max_perc = 101
     step = 10
@@ -63,7 +63,7 @@ class Player(BasePlayer):
                 payoff = Constants.risk_choices_B[1]
             else:
                 payoff = Constants.risk_choices_A[1]
-        self.participant.vars[self.session_id]['part2_payoff'] = payoff / 1.0 * 1000 # in pesos
+        self.participant.vars[self.session_id]['part2_payoff'] = payoff # in pesos
         print("risk: ", payoff)
         # the following is NOT the safest way of doing it, but works for now (insturctions should be
         # rewritten in ECUs
