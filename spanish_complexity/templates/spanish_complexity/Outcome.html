@@ -26,14 +26,14 @@
                 <td>El resultado para el Jugador 1 es  </td>
                 <td>{{ group.get_retention_decision|yesno:'Recompensa, No hay recompensa' }}</td>
             </tr>
-            {% if player.round_number == Constants.p2_second_decision_rounds %}
+            {% if round_show_guess == True %}
                 <tr>
                     <td>Su conjetura para la Tarea 1 era </td>
-                    <td> {{ group.P2guess1 }} </td>
+                    <td> {{ P2guess1 }} </td>
                 </tr>
                 <tr>
                     <td>Su conjetura para la Tarea 2 era</td>
-                    <td> {{ group.P2guess1 }} </td>
+                    <td> {{ P2guess2 }} </td>
                 </tr>
             {% endif %}
         {% endif %}

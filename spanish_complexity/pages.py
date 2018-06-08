@@ -102,8 +102,8 @@ class Outcome(CustomPage):
         task2cost = - Constants.lotterycost * self.group.task2decision
         sum_task_success_gain = (self.group.task1outcome + self.group.task2outcome) * Constants.success_prize
         sum_guess_gain = self.group.get_sum_guess_prize()
-        P2guess1 = self.group.task1guess
-        P2guess2 = self.group.task2guess
+        P2guess1 = self.group.get_guess1()
+        P2guess2 = self.group.get_guess2()
         return {
             'retention_gain': retention_gain,
             'task1cost': task1cost,
@@ -111,7 +111,9 @@ class Outcome(CustomPage):
             'sum_task_success_gain': sum_task_success_gain,
             'sum_guess_gain': sum_guess_gain,
             'P2guess1': P2guess1,
-            'P2guess2': P2guess2
+            'P2guess2': P2guess2,
+            'round_show_guess': self.round_number in Constants.p2_second_decision_rounds,
+
         }
 
     def before_next_page(self):
@@ -135,16 +137,17 @@ class FinalResults(CustomPage):
         chosen_round2 = self.participant.vars['paying_rounds'][1]
         firstPay = self.player.in_round(chosen_round1).payoff / 1.0
         secondPay = self.player.in_round(chosen_round2).payoff / 1.0
+        sum_guess_gain = self.group.get_sum_guess_prize()
         self.participant.vars[self.player.session_id] = {
             'part1_chosenRounds':[chosen_round1, chosen_round2],
-            'part1_payoff': [firstPay, secondPay],
+            'part1_payoff': [firstPay, secondPay,sum_guess_gain],
         }
         return {
             'chosen_round1': chosen_round1,
             'chosen_round2': chosen_round2,
             'first_pay': firstPay,
             'second_pay': secondPay,
-            'tot_pay': firstPay+secondPay
+            'tot_pay': firstPay+secondPay+sum_guess_gain
             # 'paying_round2': chosen_round - Constants.num_first_part,
         }
 

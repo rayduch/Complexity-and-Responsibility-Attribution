@@ -108,7 +108,7 @@ class Subsession(BaseSubsession):
 LOTTERYOUTCOMES = ((True, 'Éxito'), (False, 'Fracaso'),)
 
 P1DecisionSTRING = """
-¿Quiere pagar el costo en la Tarea {task}? El costo es {lotterycost} ECUs, Si paga, las probabilidades de Éxito en la 
+¿Quiere pagar el costo en la Tarea {task}? El costo es {lotterycost}, Si paga, las probabilidades de Éxito en la 
 tarea son de {success_p} de {totp}."""
 
 
@@ -160,16 +160,28 @@ class Group(BaseGroup):
         return Constants.RETAININGCHOICES[self.get_retention_decision()][1]
 
     def get_guess1(self):
-        if self.task1guess == self.task1decision:
-            return 'Correcto'
+        if self.task1guess:
+            if self.task1decision:
+                return 'Correcto'
+            else:
+                return 'Incorrecto'
         else:
-            return 'Incorrecto'
+            if self.task1decision:
+                return 'Incorrecto'
+            else:
+                return 'Correcto'
 
     def get_guess2(self):
-        if self.task2guess == self.task1decision:
-            return 'Correcto'
+        if self.task2guess:
+            if self.task2decision:
+                return 'Correcto'
+            else:
+                return 'Incorrecto'
         else:
-            return 'Incorrecto'
+            if self.task2decision:
+                return 'Incorrecto'
+            else:
+                return 'Correcto'
 
     def set_outcome(self):
         self.task1outcome = self.task1decision * random.choices(LOTTERYOUTCOMES, weights=Constants.pweights)[0][0]
