@@ -25,10 +25,12 @@ class FinalResults(Page):
             'modules2_payoff': self.participant.vars[self.player.session_id]['part1_payoff'][1],
             'modules3_payoff': self.participant.vars[self.player.session_id]['part2_payoff'],
             'modules4_payoff': self.participant.vars[self.player.session_id]['part3_payoff'],
+            'show_up_fee': 2000,
             'total_payoff': int((self.participant.vars[self.player.session_id]['part1_payoff'][0] +
                             self.participant.vars[self.player.session_id]['part1_payoff'][1] +
                             self.participant.vars[self.player.session_id]['part3_payoff']) * 1.67 +
-                            self.participant.vars[self.player.session_id]['part2_payoff'])
+                            self.participant.vars[self.player.session_id]['part2_payoff'] +
+                            2000)
         }
 
 
