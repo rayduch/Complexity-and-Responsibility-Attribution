@@ -1,6 +1,7 @@
 from otree.api import Currency as c, currency_range
 from ._builtin import Page, WaitPage
-from .models import Constants
+from .models import Constants, LOTTERYOUTCOMES
+import random
 
 
 def vars_for_all_templates(self):
@@ -18,7 +19,6 @@ class CustomPage(Page):
             self.role = self.player.role()
         if self.first_page is None:
             self.first_page = self.round_number
-
         return self.first_page == self.round_number and self.player.role() == self.role
 
 
@@ -42,7 +42,7 @@ class Intro2(CustomPage):
 class P1Instructions(P1Page):
     def is_displayed(self):
         # we show the swtich role page only as the first page  between role switching
-        return super().is_displayed() and (self.round_number == Constants.num_first_part + 1 or self.round_number == 1)
+        return super().is_displayed() and (self.round_number == Constants.num_first_part + Constants.num_practice + 1 or self.round_number == 1)
 
 
 class P1Example(P1Page):
@@ -52,7 +52,7 @@ class P1Example(P1Page):
 class P2Instructions(P2Page):
     def is_displayed(self):
         # we show the swtich role page only as the first page  between role switching
-        return super().is_displayed() and (self.round_number == Constants.num_first_part + 1 or self.round_number == 1)
+        return super().is_displayed() and (self.round_number == Constants.num_first_part + Constants.num_practice + 1 or self.round_number == 1)
 
 
 class P2Example(P2Page):
@@ -62,7 +62,7 @@ class P2Example(P2Page):
 class SwitchRoles(CustomPage):
     def is_displayed(self):
         # we show the swtich role page only as the first page  between role switching
-        return self.round_number == Constants.num_first_part + 1
+        return self.round_number == Constants.num_first_part + 1 + Constants.num_practice
 
     def vars_for_template(self):
         chosen_round = self.participant.vars['paying_rounds'][0]
@@ -101,6 +101,12 @@ class Outcome(CustomPage):
         task1cost = - Constants.lotterycost * self.group.task1decision
         task2cost = - Constants.lotterycost * self.group.task2decision
         sum_task_success_gain = (self.group.task1outcome + self.group.task2outcome) * Constants.success_prize
+
+        practice_task1outcome = self.group.task1decision * random.choices(LOTTERYOUTCOMES, weights=Constants.pweights)[0][0]
+        practice_task2outcome = self.group.task2decision * random.choices(LOTTERYOUTCOMES, weights=Constants.pweights)[0][0]
+
+        if self.round_number in [1,2]:
+            sum_task_success_gain = (practice_task1outcome + practice_task2outcome) * Constants.success_prize
         sum_guess_gain = self.group.get_sum_guess_prize()
         P2guess1 = self.group.get_guess1()
         P2guess2 = self.group.get_guess2()
@@ -117,20 +123,23 @@ class Outcome(CustomPage):
         }
 
     def before_next_page(self):
-        if self.round_number == Constants.num_rounds:
+        if self.round_number == Constants.num_rounds + Constants.num_practice:
             self.group.set_final_payoff()
 
 
 class ShuffleWaitPage(WaitPage):
     wait_for_all_groups = True
     def after_all_players_arrive(self):
-        self.subsession.set_mtx()
+        if self.round_number == 1 or self.round_number == 2:
+            self.subsession.set_random()
+        else:
+            self.subsession.set_mtx()
 
 
 
 class FinalResults(CustomPage):
     def is_displayed(self):
-        return super().is_displayed() and self.round_number == Constants.num_rounds
+        return super().is_displayed() and self.round_number == Constants.num_rounds + Constants.num_practice
 
     def vars_for_template(self):
         chosen_round1 = self.participant.vars['paying_rounds'][0]
@@ -153,7 +162,7 @@ class FinalResults(CustomPage):
 
 class Quiz(CustomPage):
     def is_displayed(self):
-        return super().is_displayed() and self.round_number == 1
+        return super().is_displayed() and self.round_number == 1 + Constants.num_practice
 
     def vars_for_template(self):
         questions = [
@@ -269,7 +278,7 @@ page_sequence = [
     Intro2,
     P1Instructions,
     # P1Example,
-     P2Instructions,
+    P2Instructions,
     # # P2Example,
     Quiz,
     P2FirstDecision,

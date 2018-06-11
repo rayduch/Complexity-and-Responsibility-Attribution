@@ -24,19 +24,22 @@ def get_practice_rounds(num_practice, num_first_part):
     return first_set + second_set
 
 
-def get_last_n_rounds(n, num_first_part, num_rounds):
-    first_set = list(range(num_first_part - n + 1, num_first_part + 1))
-    second_set = list(range(num_rounds - n + 1, num_rounds + 1))
+def get_last_n_rounds(n, num_first_part, num_rounds, num_practice):
+    first_set = list(range(num_first_part + num_practice - n + 1, num_first_part + num_practice + 1))
+    second_set = list(range(num_rounds + num_practice - n + 1, num_rounds + num_practice + 1))
     return first_set + second_set
 
 
 class Constants(BaseConstants):
 
+
     name_in_url = 'spanish_complexity'
     players_per_group = 2
+    # how many practice rounds we have
+    num_practice = 2
     assert players_per_group == 2, 'Number of players should be 2 for correct role assignemnt'
-    num_rounds = 16
-    num_first_part = 8
+    num_rounds = 6
+    num_first_part = 3
     num_participants = settings.SESSION_CONFIGS[0].get('num_demo_participants')# number of participants
     ####perfect matching####
     cons1 = np.zeros([num_first_part, num_participants], dtype=int)
@@ -45,16 +48,14 @@ class Constants(BaseConstants):
     Assignment = np.zeros([num_first_part, math.floor(num_participants/2), 2], dtype=int)
     ########################
     num_second_part = num_rounds - num_first_part
-    # how many practice rounds we have
-    num_practice = 0
     # when the second decision (guess) about p1 decision is shown
-    num_second_dec = 3 # run at least 7 rounds per respondent
+    num_second_dec = 1 # run at least 7 rounds per respondent
     assert num_first_part < num_rounds, 'First set of decisions should be less then total number of rounds'
     assert num_practice < num_first_part and num_practice < num_second_part, 'training rounds number should be ' \
                                                                              'strictly less than total number of rounds'
     assert num_first_part - num_practice >= num_second_dec and num_second_part - num_practice >= num_second_dec
     practice_rounds = get_practice_rounds(num_practice, num_first_part)
-    p2_second_decision_rounds = get_last_n_rounds(num_second_dec, num_first_part, num_rounds)
+    p2_second_decision_rounds = get_last_n_rounds(num_second_dec, num_first_part, num_rounds, num_practice)
     pweights = [5, 5]
     tot_prop = sum(pweights)
     prob = round(pweights[0] / sum(pweights), 2)  # probability of success if P1 invests
@@ -80,27 +81,33 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
+    def set_random(self):
+        self.group_randomly()
 
     def set_mtx(self):
-        if self.round_number <= Constants.num_first_part:
+        print("Assignment: ", Constants.Assignment)
+        if self.round_number <= Constants.num_first_part + Constants.num_practice:
             round_mtx = []
             players = self.get_players()
             for pair in range(0, math.floor(Constants.num_participants / 2)):
-                p1 = Constants.Assignment[self.round_number - 1, pair, 0]
-                p2 = Constants.Assignment[self.round_number - 1, pair, 1]
+                p1 = Constants.Assignment[self.round_number - Constants.num_practice - 1, pair, 0]
+                p2 = Constants.Assignment[self.round_number - Constants.num_practice - 1, pair, 1]
                 round_mtx.append([players[p1], players[p2]])
+            print("round: ", self.round_number, "group matrix: ", round_mtx)
             self.set_group_matrix(round_mtx)
-            print("round: ", self.round_number, "group matrix: ", self.get_group_matrix())
+
 
     def creating_session(self):
+        print("round: ", self.round_number)
         if self.round_number == 1:
             PM = pm(Constants.Assignment,Constants.Domain, Constants.var, Constants.cons1, Constants.num_participants, Constants.num_first_part)
             result = pm.do_shuffle(PM)
-            #print(Constants.Assignment)
-            self.set_mtx()
+            print(Constants.Assignment)
+            # self.set_mtx()
+            self.group_randomly()
             for p in self.session.get_participants():
-                pround1 = random.randint(1, Constants.num_first_part)
-                pround2 = random.randint(Constants.num_first_part + 1, Constants.num_rounds)
+                pround1 = random.randint(1, Constants.num_first_part + Constants.num_practice)
+                pround2 = random.randint(Constants.num_first_part + Constants.num_practice + 1, Constants.num_rounds + Constants.num_practice)
                 p.vars['paying_rounds'] = [pround1, pround2]
                 #print('Subsession pround1: ',pround1, 'pround2: ',pround2)
 
@@ -186,6 +193,9 @@ class Group(BaseGroup):
     def set_outcome(self):
         self.task1outcome = self.task1decision * random.choices(LOTTERYOUTCOMES, weights=Constants.pweights)[0][0]
         self.task2outcome = self.task2decision * random.choices(LOTTERYOUTCOMES, weights=Constants.pweights)[0][0]
+        if self.round_number in [1,2]:
+            self.task1outcome = 0
+            self.task2outcome = 0
 
     def get_sum_guess_prize(self):
         return ((self.task1decision == self.task1guess) + (
@@ -200,9 +210,12 @@ class Group(BaseGroup):
         P2.payoff = sum_success + sum_guess
         P1.payoff = (Constants.p1endowment - (self.task1decision + self.task2decision) * Constants.lotterycost +
                      self.get_retention_decision() * Constants.retention_prize)
+        if self.round_number in [1,2]:
+            P1.payoff = 0
+            P2.payoff = 0
 
     def set_final_payoff(self):
-        assert self.round_number == Constants.num_rounds, 'You should not call this method before the final round'
+        assert self.round_number == Constants.num_rounds + Constants.num_practice, 'You should not call this method before the final round'
         for p in self.get_players():
             paying_rounds = p.participant.vars['paying_rounds']
             for r in p.in_all_rounds():
@@ -221,7 +234,7 @@ class Player(BasePlayer):
 
     def role(self):
         roles = list(Constants.roles_dict.keys())
-        if bool(self.round_number <= Constants.num_first_part) ^ bool(self.id_in_group % 2 == 0):
+        if bool(self.round_number <= Constants.num_first_part + Constants.num_practice) ^ bool(self.id_in_group % 2 == 0):
             return roles[0]
         else:
             return roles[1]
