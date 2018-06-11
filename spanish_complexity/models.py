@@ -35,8 +35,8 @@ class Constants(BaseConstants):
     name_in_url = 'spanish_complexity'
     players_per_group = 2
     assert players_per_group == 2, 'Number of players should be 2 for correct role assignemnt'
-    num_rounds = 16
-    num_first_part = 8
+    num_rounds = 2 #16
+    num_first_part = 1 #8
     num_participants = settings.SESSION_CONFIGS[0].get('num_demo_participants')# number of participants
     ####perfect matching####
     cons1 = np.zeros([num_first_part, num_participants], dtype=int)
@@ -48,7 +48,7 @@ class Constants(BaseConstants):
     # how many practice rounds we have
     num_practice = 0
     # when the second decision (guess) about p1 decision is shown
-    num_second_dec = 3 # run at least 7 rounds per respondent
+    num_second_dec = 0 #3 # run at least 7 rounds per respondent
     assert num_first_part < num_rounds, 'First set of decisions should be less then total number of rounds'
     assert num_practice < num_first_part and num_practice < num_second_part, 'training rounds number should be ' \
                                                                              'strictly less than total number of rounds'
@@ -95,14 +95,17 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         if self.round_number == 1:
             PM = pm(Constants.Assignment,Constants.Domain, Constants.var, Constants.cons1, Constants.num_participants, Constants.num_first_part)
-            result = pm.do_shuffle(PM)
-            #print(Constants.Assignment)
+            pm.do_shuffle(PM)
+            # result = pm.do_shuffle(PM)
+            # print(Constants.Assignment)
             self.set_mtx()
             for p in self.session.get_participants():
                 pround1 = random.randint(1, Constants.num_first_part)
                 pround2 = random.randint(Constants.num_first_part + 1, Constants.num_rounds)
                 p.vars['paying_rounds'] = [pround1, pround2]
-                #print('Subsession pround1: ',pround1, 'pround2: ',pround2)
+                # print('Subsession pround1: ',pround1, 'pround2: ',pround2)
+        else:
+            self.set_mtx()
 
 
 LOTTERYOUTCOMES = ((True, 'Éxito'), (False, 'Fracaso'),)
@@ -146,6 +149,8 @@ class Group(BaseGroup):
                                     choices=Constants.RETAININGCHOICES,
                                     verbose_name='Elija una Regla para Recompensar o No Recompensar al Jugador 1',
                                     widget=widgets.RadioSelect)
+
+    print('task1decision', task1decision)
 
     def get_retention_decision(self):
         return {
@@ -195,6 +200,7 @@ class Group(BaseGroup):
         self.set_outcome()
         P1 = self.get_player_by_role('P1')
         P2 = self.get_player_by_role('P2')
+        print(self.task1guess, self.task1guess, self.task1decision, self.task1outcome)
         sum_success = (self.task1outcome + self.task2outcome) * Constants.success_prize
         sum_guess = self.get_sum_guess_prize()
         P2.payoff = sum_success + sum_guess
