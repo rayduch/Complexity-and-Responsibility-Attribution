@@ -42,7 +42,7 @@ class Intro2(CustomPage):
 class P1Instructions(P1Page):
     def is_displayed(self):
         # we show the swtich role page only as the first page  between role switching
-        return super().is_displayed() and (self.round_number == Constants.num_first_part + Constants.num_practice + 1 or self.round_number == 1)
+        return super().is_displayed() and (self.round_number == Constants.num_first_part + 1 or self.round_number == 1)
 
 
 class P1Example(P1Page):
@@ -52,7 +52,7 @@ class P1Example(P1Page):
 class P2Instructions(P2Page):
     def is_displayed(self):
         # we show the swtich role page only as the first page  between role switching
-        return super().is_displayed() and (self.round_number == Constants.num_first_part + Constants.num_practice + 1 or self.round_number == 1)
+        return super().is_displayed() and (self.round_number == Constants.num_first_part + 1 or self.round_number == 1)
 
 
 class P2Example(P2Page):
@@ -62,7 +62,7 @@ class P2Example(P2Page):
 class SwitchRoles(CustomPage):
     def is_displayed(self):
         # we show the swtich role page only as the first page  between role switching
-        return self.round_number == Constants.num_first_part + 1 + Constants.num_practice
+        return self.round_number == Constants.num_first_part + 1
 
     def vars_for_template(self):
         chosen_round = self.participant.vars['paying_rounds'][0]
@@ -111,19 +111,20 @@ class Outcome(CustomPage):
         P2guess1 = self.group.get_guess1()
         P2guess2 = self.group.get_guess2()
         return {
+            'in_practice' : self.round_number in [1,2],
             'retention_gain': retention_gain,
             'task1cost': task1cost,
             'task2cost': task2cost,
-            'sum_task_success_gain': sum_task_success_gain,
-            'sum_guess_gain': sum_guess_gain,
-            'P2guess1': P2guess1,
-            'P2guess2': P2guess2,
+            'sum_task_success_gain': sum_task_success_gain, # outcome will show as normal, but stored number is 0
+            'sum_guess_gain': sum_guess_gain, # practice round has no chance to guess
+            'P2guess1': P2guess1, # if in practice is ture, then no chance for player2 to guess
+            'P2guess2': P2guess2, # same as explain as P2guess1
             'round_show_guess': self.round_number in Constants.p2_second_decision_rounds,
 
         }
 
     def before_next_page(self):
-        if self.round_number == Constants.num_rounds + Constants.num_practice:
+        if self.round_number == Constants.num_rounds:
             self.group.set_final_payoff()
 
 
@@ -131,15 +132,15 @@ class ShuffleWaitPage(WaitPage):
     wait_for_all_groups = True
     def after_all_players_arrive(self):
         if self.round_number == 1 or self.round_number == 2:
-            self.subsession.set_random()
+            self.subsession.set_random() # practice round just set group matrix randomly
         else:
-            self.subsession.set_mtx()
+            self.subsession.set_mtx() # normal rounds set group matrix as perfect matching.
 
 
 
 class FinalResults(CustomPage):
     def is_displayed(self):
-        return super().is_displayed() and self.round_number == Constants.num_rounds + Constants.num_practice
+        return super().is_displayed() and self.round_number == Constants.num_rounds
 
     def vars_for_template(self):
         chosen_round1 = self.participant.vars['paying_rounds'][0]
@@ -162,7 +163,7 @@ class FinalResults(CustomPage):
 
 class Quiz(CustomPage):
     def is_displayed(self):
-        return super().is_displayed() and self.round_number == 1 + Constants.num_practice
+        return super().is_displayed() and self.round_number == 1 + 2
 
     def vars_for_template(self):
         questions = [
