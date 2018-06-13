@@ -85,7 +85,7 @@ class Subsession(BaseSubsession):
         self.group_randomly()
 
     def set_mtx(self):
-        print("Assignment: ", Constants.Assignment)
+        # print("Assignment: ", Constants.Assignment)
         if self.round_number <= Constants.num_first_part and self.round_number not in [1, 2]:
             round_mtx = []
             players = self.get_players()
@@ -93,16 +93,16 @@ class Subsession(BaseSubsession):
                 p1 = Constants.Assignment[self.round_number - 2 - 1, pair, 0] # 2 is practice number
                 p2 = Constants.Assignment[self.round_number - 2 - 1, pair, 1] # 2 is practice number
                 round_mtx.append([players[p1], players[p2]])
-            print("round: ", self.round_number, "group matrix: ", round_mtx)
+            # print("round: ", self.round_number, "group matrix: ", round_mtx)
             self.set_group_matrix(round_mtx)
 
 
     def creating_session(self):
-        print("round: ", self.round_number)
+        # print("round: ", self.round_number)
         if self.round_number == 1:
             PM = pm(Constants.Assignment,Constants.Domain, Constants.var, Constants.cons1, Constants.num_participants, Constants.num_first_part)
             result = pm.do_shuffle(PM)
-            print(Constants.Assignment)
+            # print(Constants.Assignment)
             # self.set_mtx()
             self.group_randomly() # practice usage
             for p in self.session.get_participants():
@@ -154,7 +154,7 @@ class Group(BaseGroup):
                                     verbose_name='Elija una Regla para Recompensar o No Recompensar al Jugador 1',
                                     widget=widgets.RadioSelect)
 
-    print('task1decision', task1decision)
+    # print('task1decision', task1decision)
 
     def get_retention_decision(self):
         return {
@@ -207,7 +207,7 @@ class Group(BaseGroup):
         self.set_outcome()
         P1 = self.get_player_by_role('P1')
         P2 = self.get_player_by_role('P2')
-        print(self.task1guess, self.task1guess, self.task1decision, self.task1outcome)
+        # print(self.task1guess, self.task1guess, self.task1decision, self.task1outcome)
         sum_success = (self.task1outcome + self.task2outcome) * Constants.success_prize
         sum_guess = self.get_sum_guess_prize()
         P2.payoff = sum_success + sum_guess
