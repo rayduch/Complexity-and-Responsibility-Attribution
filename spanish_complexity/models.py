@@ -109,7 +109,7 @@ class Subsession(BaseSubsession):
                 pround1 = random.randint(1 + 2, Constants.num_first_part) # 2 is practice number
                 pround2 = random.randint(Constants.num_first_part + 1, Constants.num_rounds)
                 p.vars['paying_rounds'] = [pround1, pround2]
-                #print('Subsession pround1: ',pround1, 'pround2: ',pround2)
+                # print('Subsession pround1: ',pround1, 'pround2: ',pround2)
 
 
 LOTTERYOUTCOMES = ((True, 'Éxito'), (False, 'Fracaso'),)
@@ -153,6 +153,8 @@ class Group(BaseGroup):
                                     choices=Constants.RETAININGCHOICES,
                                     verbose_name='Elija una Regla para Recompensar o No Recompensar al Jugador 1',
                                     widget=widgets.RadioSelect)
+
+    print('task1decision', task1decision)
 
     def get_retention_decision(self):
         return {
@@ -205,6 +207,7 @@ class Group(BaseGroup):
         self.set_outcome()
         P1 = self.get_player_by_role('P1')
         P2 = self.get_player_by_role('P2')
+        print(self.task1guess, self.task1guess, self.task1decision, self.task1outcome)
         sum_success = (self.task1outcome + self.task2outcome) * Constants.success_prize
         sum_guess = self.get_sum_guess_prize()
         P2.payoff = sum_success + sum_guess

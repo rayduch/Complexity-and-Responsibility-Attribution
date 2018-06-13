@@ -10,7 +10,7 @@ import otree.settings
 
 SESSION_CONFIG_DEFAULTS = {
     'real_world_currency_per_point': 1,
-    'participation_fee': 0.00,
+    'participation_fee': 2000,
     'doc': "",
 }
 
@@ -25,9 +25,9 @@ SESSION_CONFIGS = [
         'name': 'Risk',
         'display_name': "Risk",
         'num_demo_participants': 1,
-        'app_sequence': [ 'spanish_risk_pref'],
+        'app_sequence': ['spanish_risk_pref'],
     },
-{
+    {
         'name': 'Dado',
         'display_name': "Dado",
         'num_demo_participants': 1,

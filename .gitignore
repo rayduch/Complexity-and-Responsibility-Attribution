@@ -14,4 +14,4 @@ db.sqlite3
 _static_root
 _bots*s
 __temp*
-__pycache__/
+__pycache__
