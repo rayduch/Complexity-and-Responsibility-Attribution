@@ -18,7 +18,7 @@ SESSION_CONFIGS = [
     {
         'name': 'spanish_complexity',
         'display_name': "New Complexity Game",
-        'num_demo_participants': 6,
+        'num_demo_participants': 16,
         'app_sequence': ['spanish_complexity', 'spanish_risk_pref', 'spanish_die_game'],
     },
     {

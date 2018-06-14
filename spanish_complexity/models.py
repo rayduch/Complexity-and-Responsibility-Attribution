@@ -38,22 +38,22 @@ class Constants(BaseConstants):
     # how many practice rounds we have
     num_practice = 0
     assert players_per_group == 2, 'Number of players should be 2 for correct role assignemnt'
-    num_rounds = 8
-    num_first_part = 5
+    num_rounds = 22
+    num_first_part = 12
     num_participants = settings.SESSION_CONFIGS[0].get('num_demo_participants')# number of participants
     ####perfect matching####
-    cons1 = np.zeros([num_first_part, num_participants], dtype=int)
-    var = np.full([num_first_part, math.floor(num_participants/2) ], -1)
+    cons1 = np.zeros([num_first_part - 2, num_participants], dtype=int)
+    var = np.full([num_first_part - 2, math.floor(num_participants/2) ], -1)
     Domain = np.zeros([num_participants, num_participants], dtype=int)
-    Assignment = np.zeros([num_first_part, math.floor(num_participants/2), 2], dtype=int)
+    Assignment = np.zeros([num_first_part - 2, math.floor(num_participants/2), 2], dtype=int)
     ########################
     num_second_part = num_rounds - num_first_part
     # when the second decision (guess) about p1 decision is shown
-    num_second_dec = 1 # run at least 7 rounds per respondent
-    assert num_first_part < num_rounds, 'First set of decisions should be less then total number of rounds'
-    assert num_practice < num_first_part and num_practice < num_second_part, 'training rounds number should be ' \
+    num_second_dec = 3 # run at least 7 rounds per respondent
+    assert num_first_part - 2 < num_rounds, 'First set of decisions should be less then total number of rounds'
+    assert 2 < num_first_part - 2 and 2 < num_second_part, 'training rounds number should be ' \
                                                                              'strictly less than total number of rounds'
-    assert num_first_part - num_practice >= num_second_dec and num_second_part - num_practice >= num_second_dec
+    assert num_first_part - 2 - num_practice >= num_second_dec and num_second_part - num_practice >= num_second_dec
     practice_rounds = get_practice_rounds(num_practice, num_first_part)
     p2_second_decision_rounds = get_last_n_rounds(num_second_dec, num_first_part, num_rounds)
     pweights = [5, 5]
@@ -83,26 +83,29 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     def set_random(self):
         self.group_randomly()
+        # print("subsession: ", self.round_number, "mtx: ", self.get_group_matrix())
 
     def set_mtx(self):
-        # print("Assignment: ", Constants.Assignment)
-        if self.round_number <= Constants.num_first_part and self.round_number not in [1, 2]:
+        # if self.round_number == 2:
+        PM = pm(Constants.Assignment, Constants.Domain, Constants.var, Constants.cons1, Constants.num_participants,Constants.num_first_part - 2)
+        pm.do_shuffle(PM)
+        # print(Constants.Assignment)
+        # print( "Assginemtn: ", Constants.Assignment)
+        if self.round_number <= Constants.num_first_part and self.round_number != 1:
             round_mtx = []
             players = self.get_players()
             for pair in range(0, math.floor(Constants.num_participants / 2)):
                 p1 = Constants.Assignment[self.round_number - 2 - 1, pair, 0] # 2 is practice number
                 p2 = Constants.Assignment[self.round_number - 2 - 1, pair, 1] # 2 is practice number
                 round_mtx.append([players[p1], players[p2]])
-            # print("round: ", self.round_number, "group matrix: ", round_mtx)
+            print("round: ", self.round_number, "group matrix: ", round_mtx)
             self.set_group_matrix(round_mtx)
 
 
     def creating_session(self):
         # print("round: ", self.round_number)
         if self.round_number == 1:
-            PM = pm(Constants.Assignment,Constants.Domain, Constants.var, Constants.cons1, Constants.num_participants, Constants.num_first_part)
-            result = pm.do_shuffle(PM)
-            # print(Constants.Assignment)
+
             # self.set_mtx()
             self.group_randomly() # practice usage
             for p in self.session.get_participants():

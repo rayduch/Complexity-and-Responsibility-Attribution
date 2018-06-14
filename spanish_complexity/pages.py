@@ -79,8 +79,9 @@ class P2FirstDecision(P2Page):
 
 class P2SecondDecision(P2Page):
     def is_displayed(self):
-        # print('AAAA', self.round_number)
-        # print('BBBB', Constants.p2_second_decision_rounds)
+        print('AAAA', self.round_number)
+        print('BBBB', Constants.p2_second_decision_rounds)
+        print("p2 second dec: ", self.round_number, " group mtx: ", self.subsession.get_group_matrix())
         # print('P2SecondDec: task1guess: ', self.group.task1guess)
         # print('P2SecondDec: task2guess: ', self.group.task2guess)
         # print('P2SecondDec: task2guess: ', self.group.task2guess)
@@ -131,7 +132,8 @@ class Outcome(CustomPage):
 class ShuffleWaitPage(WaitPage):
     wait_for_all_groups = True
     def after_all_players_arrive(self):
-        if self.round_number == 1 or self.round_number == 2:
+        if self.round_number == 1:
+            print("round: ", self.round_number, " shuffle")
             self.subsession.set_random() # practice round just set group matrix randomly
         else:
             self.subsession.set_mtx() # normal rounds set group matrix as perfect matching.
