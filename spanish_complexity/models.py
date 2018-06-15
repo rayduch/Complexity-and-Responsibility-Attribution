@@ -93,6 +93,7 @@ class Subsession(BaseSubsession):
         # print( "Assginemtn: ", Constants.Assignment)
         if self.round_number <= Constants.num_first_part and self.round_number != 1:
             round_mtx = []
+            print ("round number: ", self.round_number)
             players = self.get_players()
             for pair in range(0, math.floor(Constants.num_participants / 2)):
                 p1 = Constants.Assignment[self.round_number - 2 - 1, pair, 0] # 2 is practice number
@@ -105,7 +106,6 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         # print("round: ", self.round_number)
         if self.round_number == 1:
-
             # self.set_mtx()
             self.group_randomly() # practice usage
             for p in self.session.get_participants():
@@ -113,6 +113,10 @@ class Subsession(BaseSubsession):
                 pround2 = random.randint(Constants.num_first_part + 1, Constants.num_rounds)
                 p.vars['paying_rounds'] = [pround1, pround2]
                 # print('Subsession pround1: ',pround1, 'pround2: ',pround2)
+        if self.round_number == 2:
+            self.group_randomly()
+        else:
+            self.set_mtx()
 
 
 LOTTERYOUTCOMES = ((True, 'Éxito'), (False, 'Fracaso'),)
