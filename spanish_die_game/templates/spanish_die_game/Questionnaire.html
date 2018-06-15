@@ -1,0 +1,17 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Cuestionario
+{% endblock %}
+
+{% block content %}
+
+     {% for field in form %}
+        {% formfield field %}
+     {% endfor %}
+    {% next_button %}
+
+{% endblock %}
+
+

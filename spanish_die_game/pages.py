@@ -37,11 +37,15 @@ class FinalResults(Page):
 class DiceRollingResults(Page):
     ...
 
+class Questionnaire(Page):
+    form_model = 'player'
+    form_fields = ['age', 'gender','ideology','trust', 'occupation', 'scholarship']
 
 
 page_sequence = [
     Instructions,
     DiceRolling,
     DiceRollingResults,
+    Questionnaire,
     FinalResults
 ]
