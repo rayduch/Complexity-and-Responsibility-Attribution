@@ -50,7 +50,7 @@ class Player(BasePlayer):
     ideology = models.IntegerField(
         choices=[0 , '0. Izquierda', 1, '1.', 2, '2. ', 3, '3.', 4, '4. ', 5, '5.', 6, '6. ', 7, '7.', 8, '8. ', 9, '9.', 10, '10. Derecha '],
         verbose_name='En política se habla normalmente de "izquierda" y "derecha". En una escala donde "0" es la "izquierda" y 10 la "derecha", ¿dónde se ubicaría?',
-        widget=widgets.HorizontalRadioSelect)
+        widget=widgets.RadioSelectHorizontal)
 
     trust = models.IntegerField(
         choices=[1,'Se puede confiar en la mayoría de las personas', 2, 'Uno nunca es lo suficientemente cuidadoso en el trato con los demá'],
@@ -58,7 +58,7 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect)
 
     occupation = models.IntegerField(
-        choices=[1,'Estudiante', 2, 'Trabajador', 3 'Otro'],
+        choices=[1,'Estudiante', 2, 'Trabajador', 3, 'Otro'],
         verbose_name='¿Cuál es su ocupación principal?',
         widget=widgets.RadioSelect)
 
