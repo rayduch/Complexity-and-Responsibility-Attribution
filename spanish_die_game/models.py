@@ -43,7 +43,7 @@ class Player(BasePlayer):
         min=13, max=125)
 
     gender = models.IntegerField(
-        choices=[['Hombre'], ['Mujer'],['Otro']],
+        choices=[[1, 'Hombre'], [2, 'Mujer'],[3, 'Otro']],
         verbose_name='Sexo',
         widget=widgets.RadioSelect)
 
