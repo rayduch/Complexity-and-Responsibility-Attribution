@@ -38,8 +38,8 @@ class Constants(BaseConstants):
     # how many practice rounds we have
     num_practice = 0
     assert players_per_group == 2, 'Number of players should be 2 for correct role assignemnt'
-    num_rounds = 22
-    num_first_part = 12
+    num_rounds = 8
+    num_first_part = 5
     num_participants = settings.SESSION_CONFIGS[0].get('num_demo_participants')# number of participants
     ####perfect matching####
     cons1 = np.zeros([num_first_part - 2, num_participants], dtype=int)
@@ -49,7 +49,7 @@ class Constants(BaseConstants):
     ########################
     num_second_part = num_rounds - num_first_part
     # when the second decision (guess) about p1 decision is shown
-    num_second_dec = 3 # run at least 7 rounds per respondent
+    num_second_dec = 1 # run at least 7 rounds per respondent
     assert num_first_part - 2 < num_rounds, 'First set of decisions should be less then total number of rounds'
     assert 2 < num_first_part - 2 and 2 < num_second_part, 'training rounds number should be ' \
                                                                              'strictly less than total number of rounds'
@@ -202,6 +202,7 @@ class Group(BaseGroup):
     def set_outcome(self):
         self.task1outcome = self.task1decision * random.choices(LOTTERYOUTCOMES, weights=Constants.pweights)[0][0]
         self.task2outcome = self.task2decision * random.choices(LOTTERYOUTCOMES, weights=Constants.pweights)[0][0]
+
         if self.round_number in [1,2]:
             self.task1outcome = 0
             self.task2outcome = 0
@@ -220,6 +221,17 @@ class Group(BaseGroup):
         P2.payoff = sum_success + sum_guess
         P1.payoff = (Constants.p1endowment - (self.task1decision + self.task2decision) * Constants.lotterycost +
                      self.get_retention_decision() * Constants.retention_prize)
+
+        # workaround to save variables in CSV
+        P1.task1 = self.task1decision
+        P1.task2 = self.task2decision
+        P1.task1outcome2 = self.task1outcome
+        P1.task2outcome2 = self.task2outcome
+        P2.pretaining = self.retaining
+        P2.task1guess2 = self.task1guess
+        P2.task2guess2 = self.task2guess
+
+
         if self.round_number in [1,2]:
             P1.payoff = 0
             P2.payoff = 0
@@ -232,9 +244,6 @@ class Group(BaseGroup):
                 r.temp_payoff = r.payoff
                 if r.round_number not in paying_rounds:
                     r.payoff = 0
-
-
-
 
 
 class Player(BasePlayer):
@@ -256,3 +265,12 @@ class Player(BasePlayer):
         roles = list(Constants.roles_dict.keys())
         another_role = list((set(roles) - set([self.role()])))[0]
         return Constants.roles_dict[another_role]
+
+    #To copy variable
+    task1 = models.IntegerField()
+    task2 = models.IntegerField()
+    task1outcome2 = models.IntegerField()
+    task2outcome2 = models.IntegerField()
+    task1guess2 = models.IntegerField()
+    task2guess2 = models.IntegerField()
+    pretaining = models.IntegerField()
