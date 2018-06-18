@@ -203,9 +203,9 @@ class Group(BaseGroup):
         self.task1outcome = self.task1decision * random.choices(LOTTERYOUTCOMES, weights=Constants.pweights)[0][0]
         self.task2outcome = self.task2decision * random.choices(LOTTERYOUTCOMES, weights=Constants.pweights)[0][0]
 
-        if self.round_number in [1,2]:
-            self.task1outcome = 0
-            self.task2outcome = 0
+        #if self.round_number in [1,2]:
+        #    self.task1outcome = 0
+        #    self.task2outcome = 0
 
     def get_sum_guess_prize(self):
         return ((self.task1decision == self.task1guess) + (
