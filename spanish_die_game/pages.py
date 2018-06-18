@@ -39,7 +39,7 @@ class DiceRollingResults(Page):
 
 class Questionnaire(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender','ideology','trust', 'occupation', 'scholarship']
+    form_fields = ['age', 'gender','ideology','trust', 'occupation', 'scholarship', 'type_scholarship']
 
 
 page_sequence = [

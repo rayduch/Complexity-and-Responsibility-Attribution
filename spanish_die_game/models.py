@@ -40,15 +40,15 @@ class Player(BasePlayer):
 
     age = models.IntegerField(
         verbose_name='Edad',
-        min=13, max=125)
+        min=18, max=125)
 
     gender = models.IntegerField(
-        choices=[[1, 'Hombre'], [2, 'Mujer'],[3, 'Otro']],
+        choices=[[1, 'Hombre'], [2, 'Mujer'],[9, 'Otro']],
         verbose_name='Sexo',
         widget=widgets.RadioSelect)
 
     ideology = models.IntegerField(
-        choices=[[0, '0.'], [1, '1.'], [2, '2. '], [3, '3.'], [4, '4.'], [5, '5.'], [6, '6.'], [7, '7.'], [8, '8. '], [9, '9.'], [ 10, '10. Derecha ']],
+        choices=[[0, '0'], [1, '1'], [2, '2 '], [3, '3'], [4, '4'], [5, '5'], [6, '6'], [7, '7'], [8, '8 '], [9, '9'], [ 10, '10. Derecha ']],
         verbose_name='En política se habla normalmente de "izquierda" y "derecha". En una escala donde "0" es la "izquierda" y 10 la "derecha", ¿dónde se ubicaría?',
         widget=widgets.RadioSelectHorizontal)
 
@@ -58,11 +58,16 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect)
 
     occupation = models.IntegerField(
-        choices=[[1,'Estudiante'], [2, 'Trabajador'], [3, 'Otro']],
+        choices=[[1,'Estudiante'], [2, 'Trabajador(a)'], [9, 'Otro']],
         verbose_name='¿Cuál es su ocupación principal?',
         widget=widgets.RadioSelect)
 
     scholarship = models.IntegerField(
-        choices=[[1,'Sí'], [2, 'No']],
-        verbose_name='¿Es beneficiario de alguna beca?',
+        choices=[[1,'Sí'], [2, 'No'], [9, 'No aplica']],
+        verbose_name='Si es estudiante universitario, por favor indique si es beneficiario/a de alguna beca',
+        widget=widgets.RadioSelect)
+
+    type_scholarship = models.IntegerField(
+        choices=[[1,'Por méritos académicos'], [2, 'Por razones económicas'], [9, 'No aplica']],
+        verbose_name='Si es beneficiaria/o, por favor indique la razón por la cual ha obtenido la beca que le cubra la mayor parte de sus gastos universitarios.',
         widget=widgets.RadioSelect)
