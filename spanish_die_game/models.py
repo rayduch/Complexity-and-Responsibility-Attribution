@@ -71,3 +71,5 @@ class Player(BasePlayer):
         choices=[[1,'Por méritos académicos'], [2, 'Por razones económicas'], [9, 'No aplica']],
         verbose_name='Si es beneficiaria/o, por favor indique la razón por la cual ha obtenido la beca que le cubra la mayor parte de sus gastos universitarios.',
         widget=widgets.RadioSelect)
+
+    payoff2 = models.IntegerField()

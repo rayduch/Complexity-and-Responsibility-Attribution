@@ -38,8 +38,8 @@ class Constants(BaseConstants):
     # how many practice rounds we have
     num_practice = 0
     assert players_per_group == 2, 'Number of players should be 2 for correct role assignemnt'
-    num_rounds = 18
-    num_first_part = 10
+    num_rounds = 8
+    num_first_part = 5
     num_participants = settings.SESSION_CONFIGS[0].get('num_demo_participants')# number of participants
     ####perfect matching####
     cons1 = np.zeros([num_first_part - 2, num_participants], dtype=int)
@@ -49,7 +49,7 @@ class Constants(BaseConstants):
     ########################
     num_second_part = num_rounds - num_first_part
     # when the second decision (guess) about p1 decision is shown
-    num_second_dec = 3 # run at least 7 rounds per respondent
+    num_second_dec = 1 # run at least 7 rounds per respondent
     assert num_first_part - 2 < num_rounds, 'First set of decisions should be less then total number of rounds'
     assert 2 < num_first_part - 2 and 2 < num_second_part, 'training rounds number should be ' \
                                                                              'strictly less than total number of rounds'

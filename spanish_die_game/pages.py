@@ -33,7 +33,6 @@ class FinalResults(Page):
                             2000)
         }
 
-
 class DiceRollingResults(Page):
     ...
 
@@ -41,6 +40,11 @@ class Questionnaire(Page):
     form_model = 'player'
     form_fields = ['age', 'gender','ideology','trust', 'occupation', 'scholarship', 'type_scholarship']
 
+    def before_next_page(self):
+        self.player.payoff2  = int((self.participant.vars[self.player.session_id]['part1_payoff'][0] +
+                            self.participant.vars[self.player.session_id]['part1_payoff'][1] +
+                            self.participant.vars[self.player.session_id]['part3_payoff']) * 2 +
+                            self.participant.vars[self.player.session_id]['part2_payoff'] + 2000)
 
 page_sequence = [
     Instructions,
