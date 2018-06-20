@@ -6,7 +6,7 @@ from .fields import LotteryField
 import random
 import numpy as np
 import math
-from .perfect_matching import PerfectMatch as pm
+# from .perfect_matching import PerfectMatch as pm
 from django.conf import settings
 
 author = 'Philipp Chapkovski, Danlin Chen'
@@ -87,17 +87,21 @@ class Subsession(BaseSubsession):
 
     def set_mtx(self):
         # if self.round_number == 2:
-        PM = pm(Constants.Assignment, Constants.Domain, Constants.var, Constants.cons1, Constants.num_participants,Constants.num_first_part - 2)
-        pm.do_shuffle(PM)
+        # PM = pm(Constants.Assignment, Constants.Domain, Constants.var, Constants.cons1, Constants.num_participants,Constants.num_first_part - 2)
+        # pm.do_shuffle(PM)
         # print(Constants.Assignment)
         # print( "Assginemtn: ", Constants.Assignment)
         if self.round_number <= Constants.num_first_part and self.round_number != 1:
             round_mtx = []
             print ("round number: ", self.round_number)
             players = self.get_players()
+            p1List = [i for i in range(0, Constants.num_participants, 2)]
+            p2List = [i for i in range(1, Constants.num_participants, 2)]
+            p2ListA = p2List[0:self.round_number - 3]
+            p2List = p2List[self.round_number - 3: len(p2List)] + p2ListA
             for pair in range(0, math.floor(Constants.num_participants / 2)):
-                p1 = Constants.Assignment[self.round_number - 2 - 1, pair, 0] # 2 is practice number
-                p2 = Constants.Assignment[self.round_number - 2 - 1, pair, 1] # 2 is practice number
+                p1 = p1List[pair]
+                p2 = p2List[pair]
                 round_mtx.append([players[p1], players[p2]])
             print("round: ", self.round_number, "group matrix: ", round_mtx)
             self.set_group_matrix(round_mtx)
@@ -106,7 +110,6 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         # print("round: ", self.round_number)
         if self.round_number == 1:
-            # self.set_mtx()
             self.group_randomly() # practice usage
             for p in self.session.get_participants():
                 pround1 = random.randint(1 + 2, Constants.num_first_part) # 2 is practice number
